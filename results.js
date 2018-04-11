@@ -70,7 +70,7 @@ class RowsResult {
   static Create(rows, fields) {
     if (VALIDATE.IsArray(rows) || VALIDATE.IsArray(fields))
       return null;
-    return new SelectResult(rows, fields);
+    return new RowsResult(rows, fields);
   }
 }
 
@@ -105,7 +105,7 @@ class InfoResult {
   static Create(resultObj) {
     if (VALIDATE.IsInstance(resultObj))
       return null;
-    return new CrudResult(resultObj);
+    return new InfoResult(resultObj);
   }
 }
 
