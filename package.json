@@ -2,7 +2,7 @@
   "name": "mysql-async",
   "version": "1.0.0",
   "description": "",
-  "main": "dbconnection.js",
+  "main": "api.js",
   "dependencies": {
     "mysql": "^2.15.0"
   },
