@@ -40,7 +40,7 @@ class DbConnection {
       this.connection.query(sql, (error, result, fields) => {
         if (error)
           reject(`Query failed: ${error}`);
-        resolve(RESULTS.CreateSelectResult(result, fields));
+        resolve(RESULTS.CreateRowsResult(result, fields));
       });
     });
   }
@@ -66,47 +66,39 @@ class DbConnection {
       });
     });
   }
-}
 
-/**
- * Create a DbConnection object with provided credentials.
- * @param {string} host Host name
- * @param {string} user User name
- * @param {string} password Password
- * @returns {Promie<DbConnection>} Returns a DbConnection object is successful. Otherwise, it returns an error.
- */
-function Create(host, user, password) {
-  let error = VALIDATE.IsInstance(host);
-  if (error)
-    return Promise.reject(`Failed to create a connection: host is ${error}`);
+  /**
+   * Create a DbConnection object with provided credentials.
+   * @param {string} host Host name
+   * @param {string} user User name
+   * @param {string} password Password
+   * @returns {Promie<DbConnection>} Returns a DbConnection object is successful. If inputs are invalid, it returns null.
+   */
+  static Create(host, user, password, database) {
+    if (
+      VALIDATE.IsInstance(host) ||
+      typeof host != 'string' ||
+      VALIDATE.IsInstance(user) ||
+      typeof user != 'string' ||
+      VALIDATE.IsInstance(password) ||
+      typeof host != 'string' ||
+      VALIDATE.IsInstance(database) ||
+      typeof database != 'string'
+    )
+      return null;
 
-  if (typeof host != 'string')
-    return Promise.reject(`Failed to create a connection: host must be a string`);
+    let connection = MYSQL.createConnection({
+      host: host,
+      user: user,
+      password: password,
+      database: database
+    });
 
-  error = VALIDATE.IsInstance(user);
-  if (error)
-    return Promise.reject(`Failed to create a connection: user is ${error}`);
-
-  if (typeof user != 'string')
-    return Promise.reject(`Failed to create a connection: user must be a string`);
-
-  error = VALIDATE.IsInstance(password);
-  if (error)
-    return Promise.reject(`Failed to create a connection: password is ${error}`);
-
-  if (typeof host != 'string')
-    return Promise.reject(`Failed to create a connection: password must be a string`);
-
-  let connection = MYSQL.createConnection({
-    host: host,
-    user: username,
-    password: password
-  });
-
-  return Promise.resolve(new DbConnection(connection));
+    return new DbConnection(connection);
+  }
 }
 
 //----------------------------------
 // EXPORTS
 
-exports.Create = Create;
+exports.Create = DbConnection.Create;
