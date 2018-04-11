@@ -27,7 +27,7 @@ class DbConnection {
   }
 
   /**
-   * Query the database.
+   * Query the database with a SQL statement that will return rows.
    * @param {string} sql SQL query
    * @returns {Promise<SelectResult>} Returns a Promise that returns a SelectResult object if successful. Otherwise, it returns an error.
    */
@@ -46,7 +46,7 @@ class DbConnection {
   }
 
   /**
-   * Query the database.
+   * Query the database with a SQL statement that only makes changes to the database and does not return rows.
    * @param {string} sql SQL query
    * @returns {Promise<CrudResult>} Returns a Promise that returns a CrudResult object if successful. Otherwise, it returns an error.
    */
