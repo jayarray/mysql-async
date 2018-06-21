@@ -94,7 +94,7 @@ class InfoResult {
    * @returns {Array<string>} Returns an array of strings corresponding to the name of each property.
    */
   PropertyValue(name) {
-    let value = this.info_[name];
+    return this.info_[name];
   }
 
   /**
