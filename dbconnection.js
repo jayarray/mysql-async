@@ -10,7 +10,7 @@ class DbConnection {
    * @param {Object} connection MySql connection object.
    */
   constructor(connection) {
-    this.connection = connection;
+    this.connection_ = connection;
   }
 
   /** 
@@ -18,7 +18,7 @@ class DbConnection {
    */
   IsConnected() {
     return new Promise((resolve, reject) => {
-      this.connection.connect((error) => {
+      this.connection_.connect((error) => {
         if (error)
           reject(`Connection error: ${error}`);
         resolve();
@@ -37,7 +37,7 @@ class DbConnection {
       return Promise.reject(`Query failed: sql string is ${error}`);
 
     return new Promise((resolve, reject) => {
-      this.connection.query(sql, (error, result, fields) => {
+      this.connection_.query(sql, (error, result, fields) => {
         if (error)
           reject(`Query failed: ${error}`);
         resolve(RESULTS.CreateRowsResult(result, fields));
@@ -59,7 +59,7 @@ class DbConnection {
       return Promise.reject(`Query failed: sql string cannot be a SELECT statement`);
 
     return new Promise((resolve, reject) => {
-      this.connection.query(sql, (error, result) => {
+      this.connection_.query(sql, (error, result) => {
         if (error)
           reject(`Query failed: ${error}`);
         resolve(RESULTS.CreateCrudResult(result));
