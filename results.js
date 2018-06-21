@@ -75,7 +75,7 @@ class RowsResult {
 }
 
 //-----------------------------------------
-// For MODIFIER operations (CREATE, UPDATE, DELETe, etc)
+// For MODIFIER operations (CREATE, UPDATE, DELETE, etc)
 
 class InfoResult {
   constructor(resultObj) {
