@@ -5,8 +5,8 @@ let VALIDATE = require('./validate.js');
 
 class RowsResult {
   constructor(rows, fields) {
-    this.rows = rows;
-    this.fields = fields;
+    this.rows_ = rows;
+    this.fields_ = fields;
   }
 
   /** 
@@ -14,7 +14,7 @@ class RowsResult {
    * @returns {Array} Returns an array of objects describing the columnns (i.e. table its from, name, length, etc).
    */
   Fields() {
-    return this.fields;
+    return this.fields_;
   }
 
   /** 
@@ -22,7 +22,7 @@ class RowsResult {
    * @returns {Array<string>} Returns an array of strings.
    */
   ColumnNames() {
-    return this.fields.map(field => field.name);
+    return this.fields_.map(field => field.name);
   }
 
   /**
@@ -31,10 +31,10 @@ class RowsResult {
    * @returns {Object}
    */
   Row(i) {
-    let length = this.rows.length;
+    let length = this.rows_.length;
     if (i < 0 || i > length)
       return null;
-    return this.rows[i];
+    return this.rows_[i];
   }
 
   /** 
@@ -42,7 +42,7 @@ class RowsResult {
    * @returns {Array} Returns an array of row objects.
    */
   Rows() {
-    return this.rows;
+    return this.rows_;
   }
 
   /**
@@ -52,13 +52,13 @@ class RowsResult {
    * @returns {Array} Returns an array of row objects. If inputs are invalid, it returns null.
    */
   RowRange(i, j) {
-    let length = this.rows.length;
+    let length = this.rows_.length;
     if (i < 0 || i > j || j < i || j > length)
       return null;
 
     if (i == j)
-      return this.rows.slice(i, j);
-    return this.rows.slice(i, j + 1);
+      return this.rows_.slice(i, j);
+    return this.rows_.slice(i, j + 1);
   }
 
   /**
@@ -79,14 +79,14 @@ class RowsResult {
 
 class InfoResult {
   constructor(resultObj) {
-    this.info = resultObj;
+    this.info_ = resultObj;
   }
 
   /** 
    * @returns {Array<string>} Returns an array of strings corresponding to the name of each property.
    */
   PropertyNames() {
-    return Object.keys(this.info);
+    return Object.keys(this.info_);
   }
 
   /**
@@ -94,7 +94,7 @@ class InfoResult {
    * @returns {Array<string>} Returns an array of strings corresponding to the name of each property.
    */
   PropertyValue(name) {
-    let value = this.info[name];
+    let value = this.info_[name];
   }
 
   /**
