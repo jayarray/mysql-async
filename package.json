@@ -1,7 +1,7 @@
 {
   "name": "mysql-async",
   "version": "1.0.0",
-  "description": "",
+  "description": "An API for executing MySQL commands.",
   "main": "api.js",
   "dependencies": {
     "mysql": "^2.15.0"
