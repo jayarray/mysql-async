@@ -29,7 +29,7 @@ class DbConnection {
   /**
    * Query the database with a SQL statement that will return rows.
    * @param {string} sql SQL query
-   * @returns {Promise<SelectResult>} Returns a Promise that returns a SelectResult object if successful. Otherwise, it returns an error.
+   * @returns {Promise<RowsResult>} Returns a Promise that returns a RowsRTesult object if successful. Otherwise, it returns an error.
    */
   RowReturningQuery(sql) {
     let error = VALIDATE.IsStringInput(sql);
@@ -48,7 +48,7 @@ class DbConnection {
   /**
    * Query the database with a SQL statement that only makes changes to the database and does not return rows.
    * @param {string} sql SQL query
-   * @returns {Promise<CrudResult>} Returns a Promise that returns a CrudResult object if successful. Otherwise, it returns an error.
+   * @returns {Promise<InfoResult>} Returns a Promise that returns a InfoResult object if successful. Otherwise, it returns an error.
    */
   InfoReturningQuery(sql) {
     let error = VALIDATE.IsStringInput(sql);
@@ -62,7 +62,7 @@ class DbConnection {
       this.connection_.query(sql, (error, result) => {
         if (error)
           reject(`Query failed: ${error}`);
-        resolve(RESULTS.CreateCrudResult(result));
+        resolve(RESULTS.CreateInfoResult(result));
       });
     });
   }
